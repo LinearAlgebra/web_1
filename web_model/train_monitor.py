@@ -26,22 +26,22 @@ def train_monitor(train_num, arriving_station, email, time_interval):
     mail_content = raw_html.decode('gb2312').strip()
     mail_ = emailsender.Mail(email,'列车到达时间估计',mail_content)
     #time.sleep(10)
-    print('列车晚点检测程序启动！')
+    # print('列车晚点检测程序启动！')
     while time.strftime('%H:%M',time.localtime()) < mail_content[-5:]:
         try:
             raw_html = GetUrlRequest(url,"")
-            print('获取网页成功')
+            # print('获取网页成功')
             mail_.message = raw_html.decode('gb2312').strip()
             mail_.message += '。检测时间：'+ time.strftime('%H:%M',time.localtime()) + ',下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + int(time_interval))) + '进行。'
             mail_.send()
             #print('发送成功')
-            print('检测时间：'+ time.strftime('%H:%M',time.localtime()) + '，下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + int(time_interval))) + '进行。')
-            print('--------------------------------------------------------------------------')
+            # print('检测时间：'+ time.strftime('%H:%M',time.localtime()) + '，下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + int(time_interval))) + '进行。')
+            # print('--------------------------------------------------------------------------')
             time.sleep(int(time_interval))
         except:
-            print('获取失败！进入一分钟冷却。')
-            print('检测时间：'+ time.strftime('%H:%M',time.localtime()) + '，下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + 60)) + '进行。')
-            print('--------------------------------------------------------------------------')
+            # print('获取失败！进入一分钟冷却。')
+            # print('检测时间：'+ time.strftime('%H:%M',time.localtime()) + '，下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + 60)) + '进行。')
+            # print('--------------------------------------------------------------------------')
             time.sleep(60)
             continue
 	    
