@@ -1,4 +1,6 @@
-import urllib.request, http.cookiejar, emailsender, time, socket, sys
+import urllib.request, http.cookiejar, time, socket, sys
+import emailsender
+
 socket.setdefaulttimeout(5)
 
 #cookie = http.cookiejar.CookieJar() 
