@@ -3,7 +3,7 @@ from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
 
 from flask.ext.wtf import Form
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import Required, Email, NumberRange
 import threading, sys
 sys.path.append('./web_model')
@@ -45,9 +45,9 @@ def index():
 class NameForm(Form):
 	train_num = StringField("Input train number:", validators=[Required()])
 	a_station = StringField("Input arriving station:", validators=[Required()])
-	email = StringField("Input your email address:", validators=[Required()])
-	time_interval = StringField("Input time interval:", validators=[Required()])
+	email = StringField("Input your email address:", validators=[Email()])
+	time_interval = IntegerField("Input time interval:", validators=[NumberRange(600,6000)])
 	submit = SubmitField("Submit")
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True, host='0.0.0.0', port=8421)
