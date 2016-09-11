@@ -1,8 +1,10 @@
 from flask import Flask
 from flask import abort
 from flask import redirect
-import os
-import web_model.train_monitor
+import os, sys
+sys.path.append('./web_model')
+
+import train_monitor, emailsender
 
 app = Flask(__name__)
 
