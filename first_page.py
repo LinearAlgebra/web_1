@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import abort
 from flask import redirect
+import os
 
 app = Flask(__name__)
 
@@ -8,14 +9,8 @@ app = Flask(__name__)
 def index():
 	return '<h1> Hello World!</h1>'
 
-@app.route('/user/<name>')
-def sayHello(name):
-	if name == 'baidu':
-		return redirect('htp://www.baidu.com')
-	elif name == 'NO':
-		return abort(404)
-
-	return '<h1> Hello, %s </h1>' % name
-
+@app.route('/xtt/<order>')
+def run_order(order):
+	return '<h1> %s </h1>' % order
 if __name__=='__main__':
-	app.run(debug=True, host = '0.0.0.0', port = 8888)
+	app.run(debug=True, host = '0.0.0.0', port = 8421)
