@@ -58,4 +58,4 @@ class Detail_Info(db.Model):
 		return '<Phonenumber %r>' % self.phonenumber
 
 if __name__ == '__main__':
-	app.run(debug=True,host='0.0.0.0',port=8842)
+	app.run(host='0.0.0.0',port=8422)
