@@ -24,7 +24,7 @@ def index():
 		if student is None:
 			student = Student(student_number=form.student_number.data,name=form.name.data)
 			detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
-			db.session.add([student,detail])
+			db.session.add_all([student,detail])
 			db.session.commit()
 			return '<h1> 2333 </h1>'
 			session['known'] = False
