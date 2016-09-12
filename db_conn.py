@@ -4,7 +4,7 @@ from flask_script import Manager
 
 app = Flask(__name__)
 manager = Manager(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@52.23.150.84:3306/test1'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@52.23.150.84/test1'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 # conn = MySQLdb.connect(host='52.23.150.84',port=3306,user='root',passwd='12518ll+.',db='mysql')
 
