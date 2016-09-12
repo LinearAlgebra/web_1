@@ -21,7 +21,8 @@ def index():
 	form = InformationForm()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
-		print(form.name.data)
+		print(form.student_number.data)
+		print(type(form.student_number.data))
 		if student is None:
 			student = Student(student_number=form.student_number.data,name=form.name.data)
 			detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
