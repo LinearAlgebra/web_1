@@ -29,4 +29,4 @@ class User(db.Model):
 		return '<User %r>' % self.username
 
 if __name__ == '__main__':
-	manager.run()
+	app.run()
