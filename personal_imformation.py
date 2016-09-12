@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@localhost/test1'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-
+app.config['SECRET_KEY'] = 'EASY TO GUESS'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
