@@ -36,7 +36,7 @@ def index():
 class InformationForm(Form):
 	student_number = IntegerField("请输入学号:", validators=[Required()])
 	name = StringField("请输入姓名:", validators=[Required()])
-	phone_number = IntegerField("请输入电话号码:", validators=[Required()])
+	phone_number = StringField("请输入电话号码:", validators=[Required()])
 	submit = SubmitField("Submit")
 
 class Student(db.Model):
