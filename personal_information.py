@@ -23,16 +23,16 @@ def index():
 	form = InformationForm()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
-		print(form.student_number.data)
+		print(student)
 		if student is None:
 			student = Student(student_number=form.student_number.data,name=form.name.data)
 			detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
 			db.session.add_all([student,detail])
 			db.session.commit()
-			return '<h1> 2333 </h1>'
+			return render_template('personal_information.html', form=form, data='学号信息录入成功，如需更改请联系管理员。 xietaitong@163.com')
 			session['known'] = False
 		else:
-			return '<h1> Yes </h1>'
+			return return render_template('personal_information.html', form=form, data=['学号被占用，占用人信息：'] + [student] )
 	return render_template('personal_information.html', form=form)
 
 class InformationForm(Form):
