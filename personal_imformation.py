@@ -20,7 +20,7 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 def index():
 	form = InformationForm()
 	if form.validate_on_submit():
-		student = Student.query.filter_by(student_number=form.student_number.data).first()
+		student = students.query.filter_by(student_number=form.student_number.data).first()
 		print(form.student_number.data)
 		print(type(form.student_number.data))
 		if student is None:
