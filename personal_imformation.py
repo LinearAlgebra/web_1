@@ -20,9 +20,8 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 def index():
 	form = InformationForm()
 	if form.validate_on_submit():
-		student = students.query.filter_by(student_number=form.student_number.data).first()
+		student = Student.query.filter_by(student_number=form.student_number.data).first()
 		print(form.student_number.data)
-		print(type(form.student_number.data))
 		if student is None:
 			student = Student(student_number=form.student_number.data,name=form.name.data)
 			detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
@@ -43,7 +42,7 @@ class InformationForm(Form):
 
 class Student(db.Model):
 	__tablename__ = 'students'
-	student_number = db.Column(db.String(64), primary_key=True,unique=True)
+	student_number = db.Column(db.String(10), primary_key=True,unique=True)
 	name = db.Column(db.String(64))
 	identity = db.relationship('Detail_Info', backref='identity')
 
@@ -52,8 +51,8 @@ class Student(db.Model):
 
 class Detail_Info(db.Model):
 	__tablename__ = 'detail_info'
-	student_number = db.Column(db.String(64), db.ForeignKey('students.student_number'),primary_key=True,unique=True)
-	phone_number = db.Column(db.String(64))
+	student_number = db.Column(db.String(10), db.ForeignKey('students.student_number'),primary_key=True,unique=True)
+	phone_number = db.Column(db.String(11))
 
 	def __repr__(self):
 		return '<Phonenumber %r>' % self.phonenumber
