@@ -29,10 +29,10 @@ def index():
 			detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
 			db.session.add_all([student,detail])
 			db.session.commit()
-			return render_template('personal_information.html', form=form, data='学号信息录入成功，如需更改请联系管理员。 xietaitong@163.com')
+			return render_template('personal_information.html', form=form, data=['学号信息录入成功，如需更改请联系管理员。 xietaitong@163.com'])
 			session['known'] = False
 		else:
-			return render_template('personal_information.html', form=form, data=['学号被占用，占用人信息:'] + [student.student_number] )
+			return render_template('personal_information.html', form=form, data=['学号被占用，占用人信息:'] + [student.name] + ['如有需要请练习管理员 xietaitong@163.com'])
 	return render_template('personal_information.html', form=form)
 
 class InformationForm(Form):
