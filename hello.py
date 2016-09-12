@@ -46,7 +46,7 @@ class NameForm(Form):
 	train_num = StringField("Input train number:", validators=[Required()])
 	a_station = StringField("Input arriving station:", validators=[Required()])
 	email = StringField("Input your email address:", validators=[Email()])
-	time_interval = IntegerField("Input time interval:", validators=[NumberRange(600,6000)])
+	time_interval = IntegerField("Input time interval (unit: second):", validators=[NumberRange(600,6000)])
 	submit = SubmitField("Submit")
 
 if __name__ == '__main__':
