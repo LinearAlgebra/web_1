@@ -1,3 +1,5 @@
+#-*-utf8-*-
+
 from flask import Flask, render_template
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
@@ -32,7 +34,6 @@ def index():
 		else:
 			return '<h1> Yes </h1>'
 	return render_template('personal_information.html', form=form)
-
 
 class InformationForm(Form):
 	student_number = StringField("请输入学号:", validators=[Length(10)])
