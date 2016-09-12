@@ -7,12 +7,13 @@ from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import Required, Email, NumberRange
 from flask_script import Manager
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@localhost/test1'
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-
 app = Flask(__name__)
 manager = Manager(app)
 db = SQLAlchemy(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@localhost/test1'
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
