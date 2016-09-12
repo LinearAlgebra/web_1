@@ -4,7 +4,7 @@ from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import Required, Email, NumberRange
+from wtforms.validators import Required, Length
 from flask_script import Manager
 
 app = Flask(__name__)
@@ -34,9 +34,9 @@ def index():
 
 
 class InformationForm(Form):
-	student_number = IntegerField("请输入学号:", validators=[Required()])
+	student_number = StringField("请输入学号:", validators=[Length(10)])
 	name = StringField("请输入姓名:", validators=[Required()])
-	phone_number = StringField("请输入电话号码:", validators=[Required()])
+	phone_number = StringField("请输入电话号码:", validators=[Length(11)])
 	submit = SubmitField("Submit")
 
 class Student(db.Model):
