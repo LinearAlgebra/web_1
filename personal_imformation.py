@@ -27,6 +27,9 @@ def index():
 			db.session.commit()
 			return '<h1> 2333 </h1>'
 			session['known'] = False
+		if student:
+			return '<h1> Yes </h1>'
+	return render_template('personal_information.html', form=form)
 
 
 class InformationForm(Form):

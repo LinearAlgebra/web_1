@@ -3,7 +3,7 @@ from flask import Flask
 from flask_script import Manager
 
 app = Flask(__name__)
-# manager = Manager(app)
+manager = Manager(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@localhost/test1'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 # conn = MySQLdb.connect(host='52.23.150.84',port=3306,user='root',passwd='12518ll+.',db='mysql')
@@ -29,4 +29,4 @@ class User(db.Model):
 		return '<User %r>' % self.username
 
 if __name__ == '__main__':
-	app.run(debug=True,host='0.0.0.0',port='8422')
+	manager.run()
