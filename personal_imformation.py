@@ -9,7 +9,7 @@ from flask_script import Manager
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
-# manager = Manager(app)
+manager = Manager(app)
 db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@localhost/test1'
@@ -21,7 +21,7 @@ def index():
 	form = InformationForm()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.name.data).first()
-		print(Student.query.filter_by(student_number=form.name.data).first())
+		print(form.name.data)
 		if student is None:
 			student = Student(student_number=form.student_number.data,name=form.name.data)
 			detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
