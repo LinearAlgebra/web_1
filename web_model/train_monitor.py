@@ -31,8 +31,12 @@ def train_monitor(train_num, arriving_station, email, time_interval):
         try:
             raw_html = GetUrlRequest(url,"")
             # print('获取网页成功')
-            mail_.message = raw_html.decode('gb2312').strip()
-            mail_.message += '。检测时间：'+ time.strftime('%H:%M',time.localtime()) + ',下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + int(time_interval))) + '进行。'
+            mail_content = raw_html.decode('gb2312').strip()
+            if '无' in mail_content:
+                mail_.message = mail_content
+                mail_.send()
+                break
+            mail_.message =mail_content + '。检测时间：'+ time.strftime('%H:%M',time.localtime()) + ',下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + int(time_interval))) + '进行。'
             mail_.send()
             #print('发送成功')
             # print('检测时间：'+ time.strftime('%H:%M',time.localtime()) + '，下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + int(time_interval))) + '进行。')
@@ -42,10 +46,10 @@ def train_monitor(train_num, arriving_station, email, time_interval):
             # print('获取失败！进入一分钟冷却。')
             # print('检测时间：'+ time.strftime('%H:%M',time.localtime()) + '，下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + 60)) + '进行。')
             # print('--------------------------------------------------------------------------')
-            time.sleep(60)
+            time.sleep(600)
             continue
 	    
-    mail_.subject = '列车已到站，晚点检测程序结束。'
+    mail_.subject = '列车已到站或无车票信息，晚点检测程序结束。'
     mail_.message = '一路顺风'
     mail_.send()
 	
