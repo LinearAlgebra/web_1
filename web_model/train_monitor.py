@@ -27,6 +27,7 @@ def train_monitor(train_num, arriving_station, email, time_interval):
     mail_ = emailsender.Mail(email,'列车到达时间估计',mail_content)
     #time.sleep(10)
     # print('列车晚点检测程序启动！')
+    smooth = True
     while time.strftime('%H:%M',time.localtime()) < mail_content[-5:] or (int(time.strftime('%H:%M',time.localtime())[:2]) - int(mail_content[-5:][:2])) > 5:
         try:
             raw_html = GetUrlRequest(url,"")
@@ -35,6 +36,7 @@ def train_monitor(train_num, arriving_station, email, time_interval):
             if '无' in mail_content:
                 mail_.message = mail_content
                 mail_.send()
+                smooth = False
                 break
             mail_.message =mail_content + '。检测时间：'+ time.strftime('%H:%M',time.localtime()) + ',下次检测将在' + time.strftime("%H:%M",time.localtime(time.time() + int(time_interval))) + '进行。'
             mail_.send()
@@ -48,10 +50,10 @@ def train_monitor(train_num, arriving_station, email, time_interval):
             # print('--------------------------------------------------------------------------')
             time.sleep(600)
             continue
-	    
-    mail_.subject = '列车已到站或无车票信息，晚点检测程序结束。'
-    mail_.message = '一路顺风'
-    mail_.send()
+    if smooth:
+        mail_.subject = '列车已到站或无车票信息，晚点检测程序结束。'
+        mail_.message = '一路顺风'
+        mail_.send()
 	
 if __name__=='__main__':
     train_monitor(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
