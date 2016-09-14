@@ -52,7 +52,7 @@ def train_monitor(train_num, arriving_station, email, time_interval):
             continue
     if smooth:
         mail_.subject = '列车已到站或无车票信息，晚点检测程序结束。'
-        mail_.message = '一路顺风'
+        mail_.message = '查询结束'
         mail_.send()
 	
 if __name__=='__main__':

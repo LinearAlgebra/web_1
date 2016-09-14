@@ -29,6 +29,7 @@ def internal_server_error(e):
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	form = NameForm()
+	flash('只能查询过去一小时至未来三小时的晚点情况~~~')
 	if form.validate_on_submit():
 		train_num = form.train_num.data
 		a_station = form.a_station.data
