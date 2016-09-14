@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
 
@@ -28,7 +28,6 @@ def internal_server_error(e):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	train_num, a_station, email, time_interval = None, None, None, None
 	form = NameForm()
 	if form.validate_on_submit():
 		train_num = form.train_num.data
@@ -37,10 +36,11 @@ def index():
 		time_interval = form.time_interval.data
 		try:
 			threading.Thread(target=train_monitor.train_monitor, args=(train_num,a_station, email, time_interval)).start()
+			flash('列车晚点监控程序启动成功！')
+			return
 		except:
-			return render_template('train_monitor.html', form=form)
-
-	return render_template('train_monitor.html', form=form, data=[train_num, a_station, email, time_interval])
+			return render_template('train_monitor.html', form=form, data=['程序启动失败！'])
+	return render_template('train_monitor.html', form=form)
 
 class NameForm(Form):
 	train_num = StringField("Input train number:", validators=[Required()])
