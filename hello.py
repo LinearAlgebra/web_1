@@ -37,7 +37,7 @@ def index():
 		try:
 			threading.Thread(target=train_monitor.train_monitor, args=(train_num,a_station, email, time_interval)).start()
 			flash('列车晚点监控程序启动成功！')
-			return
+			return render_template('train_monitor.html', form=form)
 		except:
 			return render_template('train_monitor.html', form=form, data=['程序启动失败！'])
 	return render_template('train_monitor.html', form=form)
