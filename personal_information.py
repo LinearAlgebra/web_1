@@ -21,7 +21,8 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	form = InformationForm()
-	from_1 = QueryForm()
+	form_1 in xrange(1,10):
+		passm_1 = QueryForm()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
 		if student is None:
