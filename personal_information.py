@@ -21,6 +21,7 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	form = InformationForm()
+	from_2 = QueryForm()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
 		if student is None:
@@ -28,10 +29,13 @@ def index():
 			detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
 			db.session.add_all([student,detail])
 			db.session.commit()
-			return render_template('personal_information.html', form=form, data=['学号信息录入成功，如需更改请联系管理员。 xietaitong@163.com'])
+			return render_template('personal_information.html', form=form, form_1=form_1, data=['学号信息录入成功，如需更改请联系管理员。 xietaitong@163.com'])
 			session['known'] = False
 		else:
 			return render_template('personal_information.html', form=form, data=['学号被占用，占用人信息:'] + [student.name] + ['如有需要请联系管理员 xietaitong@163.com'])
+	if form_1.validate_on_submit():
+		student_data = Student.query.join(Detail_Info.phone_number).filter_by(student_number=form.student_number.data).first().phone_number
+		return render_template('personal_information.html', form=form, form_1=form_1, data=[student_data])
 	return render_template('personal_information.html', form=form)
 
 class InformationForm(Form):
@@ -39,7 +43,9 @@ class InformationForm(Form):
 	name = StringField("请输入姓名:", validators=[Required()])
 	phone_number = StringField("请输入电话号码:", validators=[Length(11)])
 	submit = SubmitField("提交")
-	name_query = StringField("请输入姓名:", validators=[Required()])
+
+class QueryForm(Form):
+	name_query = StringField("\n请输入姓名:", validators=[Required()])
 	search = SubmitField("查询")
 
 class Student(db.Model):
