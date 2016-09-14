@@ -38,7 +38,9 @@ class InformationForm(Form):
 	student_number = StringField("请输入学号:", validators=[Length(10)])
 	name = StringField("请输入姓名:", validators=[Required()])
 	phone_number = StringField("请输入电话号码:", validators=[Length(11)])
-	submit = SubmitField("Submit")
+	submit = SubmitField("提交")
+	name_query = StringField("请输入姓名:", validators=[Required()])
+	search = SubmitField("查询")
 
 class Student(db.Model):
 	__tablename__ = 'students'
