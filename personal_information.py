@@ -34,8 +34,8 @@ def index():
 		else:
 			return render_template('personal_information.html', form=form, form_1=form_1, data=['学号被占用，占用人信息:'] + [student.name] + ['如有需要请联系管理员 xietaitong@163.com'])
 	if form_1.validate_on_submit():
-		student_data = Detail_Info.query.join(Student, Student.student_number==Detail_Info.student_number).filter_by(name=form_1.name_query.data).first(5)
-		return render_template('personal_information.html', form=form, form_1=form_1, data=[student_data])
+		student_data = Detail_Info.query.join(Student, Student.student_number==Detail_Info.student_number).filter_by(name=form_1.name_query.data).all()
+		return render_template('personal_information.html', form=form, form_1=form_1, data=student_data)
 	return render_template('personal_information.html', form=form, form_1=form_1)
 
 class InformationForm(Form):
