@@ -28,7 +28,7 @@ def train_monitor(train_num, arriving_station, email, time_interval):
     #time.sleep(10)
     # print('列车晚点检测程序启动！')
     smooth = True
-    while time.strftime('%H:%M',time.localtime()) < mail_content[-5:] or ((int(time.strftime('%H:%M',time.localtime())[:2]) - int(mail_content[-5:][:2])) > 5):
+    while (time.strftime('%H:%M',time.localtime()) < mail_content[-5:]) or ((int(time.strftime('%H:%M',time.localtime())[:2]) - int(mail_content[-5:][:2])) > 5):
         try:
             raw_html = GetUrlRequest(url,"")
             # print('获取网页成功')
