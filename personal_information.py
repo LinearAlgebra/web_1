@@ -24,15 +24,18 @@ def index():
 	form_1 = QueryForm()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
+		student = Student(student_number=form.student_number.data,name=form.name.data)
+		detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
 		if student is None:
-			student = Student(student_number=form.student_number.data,name=form.name.data)
-			detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
 			db.session.add_all([student,detail])
 			db.session.commit()
-			return render_template('personal_information.html', form=form, form_1=form_1, data=['学号信息录入成功，如需更改请联系管理员。 xietaitong@163.com'])
+			return render_template('personal_information.html', form=form, form_1=form_1, data=['信息录入成功'])
 			session['known'] = False
 		else:
-			return render_template('personal_information.html', form=form, form_1=form_1, data=['学号被占用，占用人信息:'] + [student.name] + ['如有需要请联系管理员 xietaitong@163.com'])
+			db.session.merge(student)
+			db.session.merge(detail)
+			session.commit()
+			return render_template('personal_information.html', form=form, form_1=form_1, data=['信息已更新'])
 	if form_1.validate_on_submit():
 		student_data = Detail_Info.query.join(Student, Student.student_number==Detail_Info.student_number).filter_by(name=form_1.name_query.data).all()
 		return render_template('personal_information.html', form=form, form_1=form_1, data=student_data)
