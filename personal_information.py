@@ -34,7 +34,7 @@ def index():
 		else:
 			return render_template('personal_information.html', form=form, form_1=form_1, data=['学号被占用，占用人信息:'] + [student.name] + ['如有需要请联系管理员 xietaitong@163.com'])
 	if form_1.validate_on_submit():
-		student_data = Detail_Info.query.join(Student, Student.student_number==Detail_Info.student_number).filter_by(name=form_1.name_query.data).first()
+		student_data = Detail_Info.query.join(Student, Student.student_number==Detail_Info.student_number).filter_by(name=form_1.name_query.data).top(5)
 		return render_template('personal_information.html', form=form, form_1=form_1, data=[student_data])
 	return render_template('personal_information.html', form=form, form_1=form_1)
 
@@ -63,7 +63,7 @@ class Detail_Info(db.Model):
 	phone_number = db.Column(db.String(11))
 
 	def __repr__(self):
-		return '<Phonenumber %r>' % self.phone_number
+		return '<Phone_number %r>' % self.phone_number
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=8422)
