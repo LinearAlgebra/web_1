@@ -25,7 +25,7 @@ def index():
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
 		student = Student(student_number=form.student_number.data,name=form.name.data)
-		detail = Detail_Info(phone_number=form.phone_number.data,identity=student)
+		detail = Detail_Info(phone_number=form.phone_number.data,student_number=form.student_number.data)
 		if student is None:
 			db.session.add_all([student,detail])
 			db.session.commit()
