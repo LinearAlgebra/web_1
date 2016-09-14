@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template
+from flask import Flask, render_template, flash
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -29,12 +29,14 @@ def index():
 		if student is None:
 			db.session.add_all([student,detail])
 			db.session.commit()
+			flash('信息录入成功')
 			return render_template('personal_information.html', form=form, form_1=form_1, data=['信息录入成功'])
 			session['known'] = False
 		else:
 			db.session.merge(student)
 			db.session.merge(detail)
 			db.session.commit()
+			flash('信息已更新')
 			return render_template('personal_information.html', form=form, form_1=form_1, data=['信息已更新'])
 	if form_1.validate_on_submit():
 		student_data = Detail_Info.query.join(Student, Student.student_number==Detail_Info.student_number).filter_by(name=form_1.name_query.data).all()
