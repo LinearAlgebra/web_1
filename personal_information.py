@@ -30,14 +30,14 @@ def index():
 			db.session.add_all([student,detail])
 			db.session.commit()
 			flash('信息录入成功')
-			return render_template('personal_information.html', form=form, form_1=form_1, data=['信息录入成功'])
+			return render_template('personal_information.html', form=form, form_1=form_1)
 			session['known'] = False
 		else:
 			db.session.merge(student)
 			db.session.merge(detail)
 			db.session.commit()
 			flash('信息已更新')
-			return render_template('personal_information.html', form=form, form_1=form_1, data=['信息已更新'])
+			return render_template('personal_information.html', form=form, form_1=form_1)
 	if form_1.validate_on_submit():
 		student_data = Detail_Info.query.join(Student, Student.student_number==Detail_Info.student_number).filter_by(name=form_1.name_query.data).all()
 		return render_template('personal_information.html', form=form, form_1=form_1, data=student_data)
@@ -68,7 +68,7 @@ class Detail_Info(db.Model):
 	phone_number = db.Column(db.String(11))
 
 	def __repr__(self):
-		return '<Phone_number %r>' % self.phone_number
+		return '电话号码: %r' % self.phone_number
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=8422)
