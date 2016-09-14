@@ -34,7 +34,7 @@ def index():
 		else:
 			db.session.merge(student)
 			db.session.merge(detail)
-			session.commit()
+			db.session.commit()
 			return render_template('personal_information.html', form=form, form_1=form_1, data=['信息已更新'])
 	if form_1.validate_on_submit():
 		student_data = Detail_Info.query.join(Student, Student.student_number==Detail_Info.student_number).filter_by(name=form_1.name_query.data).all()
