@@ -38,8 +38,8 @@ def index():
 			flash('信息已更新')
 			return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 	if form_1.validate_on_submit():
-		students = Student(student_number=form_1.student_number.data,name=form_1.name.data)
-		query_ans = Student.query.filter(student_number==form_1.student_number.data).filter(name==form_1.name.data).all()
+		students = Student(student_number=form_1.student_number_.data,name=form_1.name_.data)
+		query_ans = Student.query.filter_by(student_number=form_1.student_number_.data).filter_by(name=form_1.name_.data).first()
 		if not query_ans:
 			db.session.delete(students)
 			db.session.commit()
@@ -55,8 +55,8 @@ class InformationForm(Form):
 	submit = SubmitField("提交")
 
 class QueryForm(Form):
-	student_number = StringField("请输入学号:", validators=[Length(10)])
-	name = StringField("请输入姓名:", validators=[Required()])
+	student_number_ = StringField("请输入学号:", validators=[Length(10)])
+	name_ = StringField("请输入姓名:", validators=[Required()])
 	submit = SubmitField("已找到队伍，在候选名单中移除本人")
 
 class Student(db.Model):
