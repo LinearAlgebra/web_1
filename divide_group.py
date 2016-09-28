@@ -40,7 +40,7 @@ def index():
 	if form_1.validate_on_submit():
 		students = Student(student_number=form_1.student_number.data,name=form_1.name.data)
 		query_ans = Student.query.filter(student_number==form_1.student_number.data).filter(name==form_1.name.data).all()
-		if query_ans not None:
+		if not query_ans:
 			db.session.delete(students)
 			db.session.commit()
 			flash('信息已移除')
