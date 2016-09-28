@@ -38,11 +38,11 @@ def index():
 			flash('信息已更新')
 			return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 	if form_1.validate_on_submit():
-		students_ = Student(student_number=form_1.student_number_.data,name=form_1.name_.data)
+		# students_ = Student(student_number=form_1.student_number_.data,name=form_1.name_.data)
 		query_ans = Student.query.filter_by(student_number=form_1.student_number_.data,name=form_1.name_.data).first()
-		db.session.rollback()
+		# db.session.rollback()
 		if query_ans:
-			db.session.delete(students_)
+			db.session.delete(query_ans)
 			db.session.commit()
 			flash('信息已移除')
 		else:
