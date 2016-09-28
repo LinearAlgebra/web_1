@@ -48,12 +48,14 @@ while True:
 		else:
 			engine = create_engine('mysql+mysqlconnector://root:12518ll+.@localhost:3306/test1')
 			db = sessionmaker(bind=engine)
+			break
 			session = db()
 			student = session.query(Student).all()
 			print(student)
 			smtpObj.sendmail('nkjz2016@126.com',['412313393@qq.com','814453212@qq.com'],msg.as_string())
 			record_list.append(msg.get('Message-ID'))
 			num -= 1
+	break
 	smtpObj.quit()
 	f = open('record.txt', 'wb')
 	pickle.dump(record_list, f)
