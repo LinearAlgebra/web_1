@@ -31,16 +31,13 @@ def index():
 			db.session.add(students)
 			db.session.commit()
 			flash('信息录入成功')
-			db.session.rollback()
 			student_data = db.session.query(Student).all()
-			db.session.rollback()
 			return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 			session['known'] = False
 		else:
 			db.session.merge(students)
 			db.session.commit()
 			flash('信息已更新')
-			db.session.rollback()
 			student_data = db.session.query(Student).all()
 			return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 	if form_1.validate_on_submit():
@@ -54,7 +51,6 @@ def index():
 		else:
 			flash('查无此人，请检查信息是否正确')
 		student_data = db.session.query(Student).all()
-		db.session.rollback()
 		return render_template('personal_information.html', form=form, form_1=form_1, data=student_data)
 	db.session.rollback()
 	flash('有兴趣参加随机分组的同学，可以把信息留到周末，我们到时候随机~~~')
