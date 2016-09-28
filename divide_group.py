@@ -36,7 +36,7 @@ def index():
 			return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 			session['known'] = False
 		else:
-			db.session.merge(student)
+			db.session.merge(students)
 			db.session.commit()
 			flash('信息已更新')
 			db.session.rollback()
