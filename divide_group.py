@@ -62,7 +62,7 @@ class QueryForm(Form):
 class Student(db.Model):
 	__tablename__ = 'student_group'
 	student_number = db.Column(db.String(10), primary_key=True,unique=True)
-	name = db.Column(db.String(64), validators=[Required()])
+	name = db.Column(db.String(64))
 
 	def __repr__(self):
 		return '<Student %r>' % self.name
