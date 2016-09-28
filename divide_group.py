@@ -58,6 +58,7 @@ def index():
 		db.session.rollback()
 		return render_template('personal_information.html', form=form, form_1=form_1, data=student_data)
 	db.session.rollback()
+	flash('如果看到一大串英文，后退一下即可~~~')
 	return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 
 class InformationForm(Form):
@@ -76,7 +77,7 @@ class Student(db.Model):
 	name = db.Column(db.String(64))
 
 	def __repr__(self):
-		return '%r' % self.name
+		return self.name
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=8848,debug=True)
