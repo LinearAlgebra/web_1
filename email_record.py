@@ -23,7 +23,6 @@ def index():
 	db.session.rollback()
 	form = InformationForm()
 	form_1 = QueryForm()
-	student_data = db.session.query(Student).all()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
 		students = Student(student_number=form.student_number.data,name=form.name.data)
@@ -31,17 +30,14 @@ def index():
 			db.session.add(students)
 			db.session.commit()
 			flash('邮箱信息录入成功')
-			student_data = db.session.query(Student).all()
 			return render_template('mail_record.html', form=form, form_1=form_1)
 			session['known'] = False
 		else:
 			db.session.merge(students)
 			db.session.commit()
 			flash('邮箱信息已更新')
-			student_data = db.session.query(Student).all()
 			return render_template('mail_record.html', form=form, form_1=form_1)
 	if form_1.validate_on_submit():
-		db.session.rollback()
 		# students_ = Student(student_number=form_1.student_number_.data,name=form_1.name_.data)
 		query_ans = Student.query.filter_by(student_number=form_1.student_number_.data,name=form_1.name_.data).first()
 		if query_ans:
@@ -50,9 +46,7 @@ def index():
 			flash('邮箱信息已移除')
 		else:
 			flash('查无此人，请检查信息是否正确')
-		student_data = db.session.query(Student).all()
 		return render_template('mail_record.html', form=form, form_1=form_1)
-	db.session.rollback()
 	return render_template('mail_record.html', form=form, form_1=form_1)
 
 class InformationForm(Form):
