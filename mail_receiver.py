@@ -28,10 +28,10 @@ if 'record.txt' not in dir_list:
 		content = '\n'.join(full_mail)
 		msg = email.message_from_string(content)
 		record_list.append(msg.get('Message-ID'))
-		f = open('record.txt', 'wb')
-		pickle.dump(record_list, f)
-		f.close()
-		revcSer.close()
+	f = open('record.txt', 'wb')
+	pickle.dump(record_list, f)
+	f.close()
+	revcSer.close()
 	time.sleep(300)
 
 class Student(Base):
