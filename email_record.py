@@ -20,7 +20,6 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	db.session.rollback()
 	form = InformationForm()
 	form_1 = QueryForm()
 	if form.validate_on_submit():
