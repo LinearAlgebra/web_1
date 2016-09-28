@@ -25,8 +25,8 @@ def index():
 	form_1 = QueryForm()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
+		students = Student(student_number=form.student_number.data,name=form.name.data)
 		if student is None:
-			students = Student(student_number=form.student_number.data,name=form.name.data)
 			db.session.add(students)
 			db.session.commit()
 			flash('邮箱信息录入成功')
