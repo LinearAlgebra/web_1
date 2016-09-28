@@ -76,7 +76,7 @@ class Student(db.Model):
 	name = db.Column(db.String(64))
 
 	def __repr__(self):
-		return '<Student %r>' % self.name
+		return '%r' % self.name
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=8848,debug=True)
