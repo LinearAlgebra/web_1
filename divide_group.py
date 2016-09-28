@@ -20,6 +20,7 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+	db.session.rollback()
 	form = InformationForm()
 	form_1 = QueryForm()
 	student_data = db.session.query(Student).all()
@@ -30,16 +31,16 @@ def index():
 			db.session.add(students)
 			db.session.commit()
 			flash('信息录入成功')
-			student_data = db.session.query(Student).all()
 			db.session.rollback()
+			student_data = db.session.query(Student).all()
 			return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 			session['known'] = False
 		else:
 			db.session.merge(student)
 			db.session.commit()
 			flash('信息已更新')
-			student_data = db.session.query(Student).all()
 			db.session.rollback()
+			student_data = db.session.query(Student).all()
 			return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 	if form_1.validate_on_submit():
 		# students_ = Student(student_number=form_1.student_number_.data,name=form_1.name_.data)
@@ -52,9 +53,9 @@ def index():
 		else:
 			flash('查无此人，请检查信息是否正确')
 		student_data = db.session.query(Student).all()
-		db.session.rollback()
+		# db.session.rollback()
 		return render_template('personal_information.html', form=form, form_1=form_1, data=student_data)
-	db.session.rollback()
+	# db.session.rollback()
 	return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 
 class InformationForm(Form):
