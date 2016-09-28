@@ -22,7 +22,6 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 def index():
 	form = InformationForm()
 	form_1 = QueryForm()
-	db.session.connect()
 	student_data = db.session.query(Student).all()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(student_number=form.student_number.data).first()
