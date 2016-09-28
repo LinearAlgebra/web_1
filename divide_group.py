@@ -59,7 +59,8 @@ def index():
 		db.session.rollback()
 		return render_template('personal_information.html', form=form, form_1=form_1, data=student_data)
 	db.session.rollback()
-	flash('如果看到一大串英文，后退一下即可~~~')
+	flash('有兴趣参加随机分组的同学，可以把信息留到周末，我们到时候随机~~~')
+	flash('由于服务器比较慢，如果看到一大串英文，后退重来一次即可~~~')
 	return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 
 class InformationForm(Form):
