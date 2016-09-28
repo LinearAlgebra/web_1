@@ -48,6 +48,7 @@ def index():
 		else:
 			flash('查无此人，请检查信息是否正确')
 		return render_template('personal_information.html', form=form, form_1=form_1, data=student_data)
+	db.session.rollback()
 	return render_template('personal_information.html', form=form, form_1=form_1,data=student_data)
 
 class InformationForm(Form):
