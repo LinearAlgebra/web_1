@@ -10,7 +10,7 @@ Base = declarative_base()
 # session = db()
 
 pop3server = 'pop.126.com'
-smtpserver = 'smtp.126.com'
+smtpserver = 'smtp.gmail.com'
 
 revcSer = POP3_SSL(pop3server)
 # revcSer.starttls()
@@ -45,17 +45,20 @@ def main():
 		record_list = pickle.load(f)
 		f.close()
 		revcSer = POP3_SSL(pop3server)
-		revcSer.user('nkjz2016@126.com')  
+		revcSer.user('nkjz2016@126.com') 
 		revcSer.pass_('nkjz2016')
 		num,total_size = revcSer.stat()
 		while True:
+			f = open('record.txt', 'rb')
+			record_list = pickle.load(f)
+			f.close()
 			hdr,text,octet=revcSer.retr(num)
 			full_mail = map(bytes.decode, text)
 			content = '\n'.join(full_mail)
 			msg = email.message_from_string(content)
-			smtpObj = smtplib.SMTP('smtp.qq.com',587)
+			smtpObj = smtplib.SMTP('smtp.gmail.com',587)
 			smtpObj.starttls()
-			smtpObj.login('412313393@qq.com','xwxsxkestgedcajf')
+			smtpObj.login('m.linearalgebra@gmail.com','vottkcjbaheqzgiw')
 			if msg.get('Message-ID') in record_list:
 				print('没有新邮件！' + time.strftime('%H:%M',time.localtime()))
 				break
@@ -65,19 +68,19 @@ def main():
 				session = db()
 				student = session.query(Student).all()
 				mail_list = list(map(lambda x:x.name, student))
-				msg['From'] = '412313393@qq.com'
 				session.close()
-				smtpObj.sendmail('412313393@qq.com',mail_list,msg.as_string())
+				smtpObj.sendmail('m.linearalgebra@gmail.com',mail_list,msg.as_string())
+				record_list.append(msg.get('Message-ID'))
+				num -= 1
+				f = open('record.txt', 'wb')
+				pickle.dump(record_list, f)
+				f.close()
 				dh = email.header.decode_header(msg.get('subject'))
 				my_subject = dh[0][0].decode(dh[0][1])
 				print('新邮件已发送' + my_subject + time.strftime('%H:%M',time.localtime()))
-				record_list.append(msg.get('Message-ID'))
-				num -= 1
+				time.sleep(1000)
 		revcSer.close()
 		smtpObj.quit()
-		f = open('record.txt', 'wb')
-		pickle.dump(record_list, f)
-		f.close()
 		time.sleep(1000)
 
 if __name__=='__main__':
