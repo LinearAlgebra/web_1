@@ -44,6 +44,9 @@ def main():
 		f = open('record.txt', 'rb')
 		record_list = pickle.load(f)
 		f.close()
+		revcSer = POP3_SSL(pop3server)
+		revcSer.user('nkjz2016@126.com') 
+		revcSer.pass_('nkjz2016')
 		num,total_size = revcSer.stat()
 		while True:
 			f = open('record.txt', 'rb')
