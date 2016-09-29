@@ -44,14 +44,14 @@ def main():
 		f = open('record.txt', 'rb')
 		record_list = pickle.load(f)
 		f.close()
-		revcSer = POP3_SSL(pop3server)
-		revcSer.user('nkjz2016@126.com') 
-		revcSer.pass_('nkjz2016')
 		num,total_size = revcSer.stat()
 		while True:
 			f = open('record.txt', 'rb')
 			record_list = pickle.load(f)
 			f.close()
+			revcSer = POP3_SSL(pop3server)
+			revcSer.user('nkjz2016@126.com') 
+			revcSer.pass_('nkjz2016')
 			hdr,text,octet=revcSer.retr(num)
 			full_mail = map(bytes.decode, text)
 			content = '\n'.join(full_mail)
@@ -61,6 +61,9 @@ def main():
 			smtpObj.login('m.linearalgebra@gmail.com','vottkcjbaheqzgiw')
 			if msg.get('Message-ID') in record_list:
 				print('没有新邮件！' + time.strftime('%H:%M',time.localtime()))
+				revcSer.close()
+				smtpObj.quit()
+				time.sleep(1000)
 				break
 			else:
 				engine = create_engine('mysql://root:12518ll+.@localhost:3306/test1')
@@ -78,10 +81,11 @@ def main():
 				dh = email.header.decode_header(msg.get('subject'))
 				my_subject = dh[0][0].decode(dh[0][1])
 				print('新邮件已发送' + my_subject + time.strftime('%H:%M',time.localtime()))
+				revcSer.close()
+				smtpObj.quit()
 				time.sleep(1000)
-		revcSer.close()
-		smtpObj.quit()
-		time.sleep(1000)
+		
+		
 
 if __name__=='__main__':
 	while True:
