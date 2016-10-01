@@ -7,10 +7,10 @@
   		{% if messages %}
     		<ul class=flashes>
     			{% for category, message in messages %}
-      				<li class="{{ category }}">
+      				<div class="{{ category }}">
       					<button type="button" class="close" data-dismiss="alert">&times;</button>
       					{{ message }}
-      				</li>
+      				</div>
     			{% endfor %}
     		</ul>
   		{% endif %}
