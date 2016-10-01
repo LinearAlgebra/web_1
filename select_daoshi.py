@@ -32,7 +32,7 @@ def index():
 		if student is None:
 			db.session.add(students)
 			db.session.commit()
-			flash('信息录入成功','success')
+			flash('信息录入成功','error')
 			return render_template('select_daoshi.html', form=form)
 		else:
 			db.session.rollback()
