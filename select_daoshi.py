@@ -37,7 +37,7 @@ def index():
 			flash('信息录入成功','alert alert-success')
 			return render_template('select_daoshi.html', form=form)
 		else:
-			if student.name == student_1.name and {student.daoshi_1,student.daoshi_2,student.daoshi_3} == {student_1.daoshi_1,student_1.daoshi_2,student_1.daoshi_3} and student.phone==student_1.phone:
+			if student.name == student_1.name and [student.daoshi_1,student.daoshi_2,student.daoshi_3] == [student_1.daoshi_1,student_1.daoshi_2,student_1.daoshi_3] and student.phone==student_1.phone:
 				flash('该学号已登记，登记时间为%s，你此次输入的信息与数据库中保存的信息相符' % student.stime, 'alert alert-success')
 			else:
 				flash('该学号已登记，登记时间%s, 并且你此次输入的信息与数据库保存的信息不符。如需更改登记信息请微信联系管理员，或用本人南开邮箱发送邮件至2120162310@mail.nankai.edu.cn' % student.stime, 'alert alert-danger')
@@ -72,4 +72,4 @@ class Student(db.Model):
 
 if __name__ == '__main__':
 	db.create_all()
-	app.run(host='0.0.0.0',port=8899,debug=True)
+	app.run(host='0.0.0.0',port=8899)
