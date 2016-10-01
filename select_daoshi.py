@@ -24,7 +24,7 @@ def index():
 	form = InformationForm()
 	if form.validate_on_submit():
 		student = Student.query.filter_by(id=form.id.data).first()
-		students = Student(id=form.id.data,
+		student_1 = Student(id=form.id.data,
 							name=form.name.data,
 							daoshi_1=form.daoshi_1.data,
 							daoshi_2=form.daoshi_2.data,
@@ -32,13 +32,12 @@ def index():
 							phone = form.phone.data,
 							stime = time.strftime("%Y-%m-%d %H:%M:%S"))
 		if student is None:
-			db.session.add(students)
+			db.session.add(student_1)
 			db.session.commit()
 			flash('信息录入成功','alert alert-success')
 			return render_template('select_daoshi.html', form=form)
 		else:
-			print(dir(student))
-			if student == students:
+			if student.name == student_1.name and {student.daoshi_1,student.daoshi_2,student.daoshi_3} == {student_1.daoshi_1,student_1.daoshi_2,student_1.daoshi_3} and student.phone==student_1.phone:
 				flash('该学号已登记，登记时间为%s，你此次输入的信息与数据库中保存的信息相符' % student.stime, 'alert alert-success')
 			else:
 				flash('该学号已登记，登记时间%s, 并且你此次输入的信息与数据库保存的信息不符。如需更改登记信息请微信联系管理员，或用本人南开邮箱发送邮件至2120162310@mail.nankai.edu.cn' % student.stime, 'alert alert-danger')
