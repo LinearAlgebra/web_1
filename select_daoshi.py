@@ -37,6 +37,7 @@ def index():
 			flash('信息录入成功','alert alert-success')
 			return render_template('select_daoshi.html', form=form)
 		else:
+			print(dir(student))
 			if student == students:
 				flash('该学号已登记，登记时间为%s，你此次输入的信息与数据库中保存的信息相符' % student.stime, 'alert alert-success')
 			else:
