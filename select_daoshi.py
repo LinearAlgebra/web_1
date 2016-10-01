@@ -32,10 +32,11 @@ def index():
 		if student is None:
 			db.session.add(students)
 			db.session.commit()
-			flash('信息录入成功')
+			flash('信息录入成功','success')
 			return render_template('select_daoshi.html', form=form)
 		else:
 			db.session.rollback()
+			flash('该学号已登记，如需更改请微信联系管理员', 'error')
 			return render_template('select_daoshi.html', form=form)
 	return render_template('select_daoshi.html', form=form)
 
