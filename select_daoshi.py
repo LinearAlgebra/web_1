@@ -36,7 +36,7 @@ def index():
 			return render_template('select_daoshi.html', form=form)
 		else:
 			db.session.rollback()
-			flash('该学号已登记，如需更改请微信联系管理员', 'error')
+			flash('该学号已登记，如需更改请微信联系管理员', 'alert-danger')
 			return render_template('select_daoshi.html', form=form)
 	return render_template('select_daoshi.html', form=form)
 
