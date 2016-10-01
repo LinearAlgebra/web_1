@@ -30,7 +30,7 @@ def index():
 							daoshi_3=form.daoshi_3.data,
 							phone = form.phone.data)
 		if student is None:
-			db.session.add(student)
+			db.session.add(students)
 			db.session.commit()
 			flash('信息录入成功')
 			return render_template('select_daoshi.html', form=form)
