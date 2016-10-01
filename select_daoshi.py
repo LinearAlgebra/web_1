@@ -38,7 +38,7 @@ def index():
 			db.session.rollback()
 			flash('该学号已登记，如需更改请微信联系管理员，或用本人南开邮箱发送邮件至2120162310@mail.nankai.edu.cn', 'alert alert-danger')
 			return render_template('select_daoshi.html', form=form)
-	flash('为了防止个人志愿被篡改，在本网页只能提交一次志愿。之后如需要更改，可直接通过微信或者通过南开邮箱联系我2120162310@mail.nankai.edu.cn（发件时请使用本人南开邮箱）')
+	flash('为了防止个人志愿被篡改，在本网页只能提交一次志愿。之后如需要更改，可直接通过微信或者通过南开邮箱联系我2120162310@mail.nankai.edu.cn（发件时请使用本人南开邮箱）','alert alert-info')
 	return render_template('select_daoshi.html', form=form)
 
 class InformationForm(Form):
