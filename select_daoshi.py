@@ -14,9 +14,9 @@ app = Flask(__name__)
 bootstrap = Bootstrap(app)
 manager = Manager(app)
 db = SQLAlchemy(app)
-print(dir(db))
+# print(dir(db))
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@52.23.150.84/test1'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@localhost/test1'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SECRET_KEY'] = 'EASY TO GUESS'
 
