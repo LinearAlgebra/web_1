@@ -41,7 +41,7 @@ def index():
 				flash('该学号已登记，登记时间为%s，你此次输入的信息与数据库中保存的信息相符' % student.stime, 'alert alert-success')
 			else:
 				flash('该学号已登记，登记时间%s, 并且你此次输入的信息与数据库保存的信息不符。如需更改登记信息请微信联系管理员，或用本人南开邮箱发送邮件至2120162310@mail.nankai.edu.cn' % student.stime, 'alert alert-danger')
-			db.session.rollback()
+			# db.session.rollback()
 			return render_template('select_daoshi.html', form=form)
 	flash('为了防止个人志愿被篡改，在本网页只能提交一次志愿。之后如需要更改，可直接通过微信或者通过南开邮箱联系我2120162310@mail.nankai.edu.cn（发件时请使用本人南开邮箱）','alert alert-info')
 	return render_template('select_daoshi.html', form=form)
@@ -71,5 +71,10 @@ class Student(db.Model):
 
 
 if __name__ == '__main__':
-	db.create_all()
-	app.run(host='0.0.0.0',port=8899)
+	# db.create_all()
+	while True:
+		try:
+			app.run(host='0.0.0.0',port=8899)
+		except BaseException as e:
+			db.session.rollback()
+			print(e)
