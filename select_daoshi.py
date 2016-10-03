@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from 
 from flask import Flask, render_template, flash
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
