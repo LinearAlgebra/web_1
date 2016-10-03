@@ -52,6 +52,12 @@ def index():
 	flash('为了防止个人志愿被篡改，在本网页只能提交一次志愿。之后如需要更改，可直接通过微信或者通过南开邮箱联系我2120162310@mail.nankai.edu.cn（发件时请使用本人南开邮箱）','alert alert-info')
 	return render_template('select_daoshi.html', form=form)
 
+@app.errorhandler(500):
+def handle_500(e):
+	db.session.rollback()
+	flash('信息录入失败，请重新录入','alert alert-danger')
+	return render_template('select_daoshi.html', form=form)
+
 class InformationForm(Form):
 	id = StringField("请输入学号:", validators=[Length(10)])
 	name = StringField("请输入姓名:", validators=[Required()])
