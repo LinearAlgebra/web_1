@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from 
 from flask import Flask, render_template, flash
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
@@ -14,6 +15,7 @@ app = Flask(__name__)
 bootstrap = Bootstrap(app)
 manager = Manager(app)
 db = SQLAlchemy(app)
+db.connect()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12518ll+.@52.23.150.84/test1'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
@@ -33,7 +35,12 @@ def index():
 							stime = time.strftime("%Y-%m-%d %H:%M:%S"))
 		if student is None:
 			db.session.add(student_1)
-			db.session.commit()
+			try:
+				db.session.commit()
+			except BaseException:
+				flash('信息录入失败，请重新录入','alert alert-danger')
+				db.session.rollback()
+				return render_template('select_daoshi.html', form=form)
 			flash('信息录入成功','alert alert-success')
 			return render_template('select_daoshi.html', form=form)
 		else:
