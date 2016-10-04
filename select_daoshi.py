@@ -54,6 +54,7 @@ def index():
 
 @app.errorhandler(500)
 def handle_500(e):
+	form = InformationForm()
 	db.session.rollback()
 	flash('信息录入失败，请重新录入','alert alert-danger')
 	return render_template('select_daoshi.html', form=form)
