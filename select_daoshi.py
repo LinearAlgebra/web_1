@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, flash
+from flask import Flask, render_template, flash, redirect, url_for
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -22,9 +22,10 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+	db.session.rollback()
 	form = InformationForm()
 	if form.validate_on_submit():
-		student = Student.query.filter_by(id=form.id.data).first()
+		student = yield from Student.query.filter_by(id=form.id.data).first()
 		student_1 = Student(id=form.id.data,
 							name=form.name.data,
 							daoshi_1=form.daoshi_1.data,
@@ -54,10 +55,9 @@ def index():
 
 @app.errorhandler(500)
 def handle_500(e):
-	form = InformationForm()
 	db.session.rollback()
 	flash('信息录入失败，请重新录入','alert alert-danger')
-	return render_template('select_daoshi.html', form=form)
+	return redirect(url_for('index'))
 
 class InformationForm(Form):
 	id = StringField("请输入学号:", validators=[Length(10)])
