@@ -22,11 +22,11 @@ app.config['SECRET_KEY'] = 'EASY TO GUESS'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	db.session.rollback()
+	# db.session.rollback()
 	form = InformationForm()
 	if form.validate_on_submit():
-		student = Student.query.filter_by(id=form.id.data).first()
-		student_1 = Student(id=form.id.data,
+		student = Student.query.filter_by(id=form.id_1.data).first()
+		student_1 = Student(id=form.id_1.data,
 							name=form.name.data,
 							daoshi_1=form.daoshi_1.data,
 							daoshi_2=form.daoshi_2.data,
@@ -60,7 +60,7 @@ def handle_500(e):
 	return redirect(url_for('index'))
 
 class InformationForm(Form):
-	id = StringField("请输入学号:", validators=[Length(10)])
+	id_1 = StringField("请输入学号:", validators=[Length(10)])
 	name = StringField("请输入姓名:", validators=[Required()])
 	daoshi_1 = StringField("请输入一志愿导师:", validators=[Required()])
 	daoshi_2 = StringField("请输入二志愿导师:", validators=[Required()])
