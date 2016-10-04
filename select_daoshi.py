@@ -35,8 +35,8 @@ def index():
 		if student is None:
 			db.session.add(student_1)
 			try:
-				db.session.commit()
-			except BaseException:
+				yield from db.session.commit()
+			except:
 				flash('信息录入失败，请重新录入','alert alert-danger')
 				db.session.rollback()
 				return render_template('select_daoshi.html', form=form)
