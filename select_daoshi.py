@@ -25,7 +25,7 @@ def index():
 	db.session.rollback()
 	form = InformationForm()
 	if form.validate_on_submit():
-		student = yield from Student.query.filter_by(id=form.id.data).first()
+		student = Student.query.filter_by(id=form.id.data).first()
 		student_1 = Student(id=form.id.data,
 							name=form.name.data,
 							daoshi_1=form.daoshi_1.data,
