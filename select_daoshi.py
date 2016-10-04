@@ -35,7 +35,7 @@ def index():
 		if student is None:
 			db.session.add(student_1)
 			try:
-				yield from db.session.commit()
+				db.session.commit()
 			except:
 				flash('信息录入失败，请重新录入','alert alert-danger')
 				db.session.rollback()
