@@ -59,7 +59,7 @@ def handle_500(e):
 	flash('信息录入失败，请重新录入','alert alert-danger')
 	return redirect(url_for('index'))
 
-@app.errorhandler(302)
+@app.errorhandler()
 def handle_500(e):
 	db.session.rollback()
 	flash('信息录入失败，请重新录入','alert alert-danger')
