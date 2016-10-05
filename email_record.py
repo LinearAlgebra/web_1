@@ -27,7 +27,6 @@ def index():
 		students = Student(student_number=form.student_number.data,name=form.name.data)
 		if student is None:
 			db.session.add(students)
-			db.session.commit()
 			flash('邮箱信息录入成功')
 			return render_template('mail_record.html', form=form, form_1=form_1)
 			session['known'] = False
