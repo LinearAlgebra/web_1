@@ -59,11 +59,11 @@ def handle_500(e):
 	flash('信息录入失败，请重新录入','alert alert-danger')
 	return redirect(url_for('index'))
 
-@app.errorhandler()
-def handle_500(e):
-	db.session.rollback()
-	flash('信息录入失败，请重新录入','alert alert-danger')
-	return redirect(url_for('index'))
+# @app.errorhandler()
+# def handle_500(e):
+# 	db.session.rollback()
+# 	flash('信息录入失败，请重新录入','alert alert-danger')
+# 	return redirect(url_for('index'))
 
 class InformationForm(Form):
 	id_1 = StringField("请输入学号:", validators=[Length(10)])
