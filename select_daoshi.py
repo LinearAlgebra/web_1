@@ -44,7 +44,7 @@ def index():
 				flash('该学号已登记，登记时间%s, 并且你此次输入的信息与数据库保存的信息不符。如需更改登记信息请微信联系管理员，或用本人南开邮箱发送邮件至2120162310@mail.nankai.edu.cn' % student.stime, 'alert alert-danger')
 			# db.session.rollback()
 			return render_template('select_daoshi.html', form=form)
-	flash('这是一个用来统计《商品投资》模拟期货账户的页面，大家记得不要填错~','alert alert-info')
+	flash('这是一个用来统计《商品投资》模拟期货账户的页面，要填错~另外登记成功会有提示', 'alert alert-info')
 	return render_template('select_daoshi.html', form=form)
 
 @app.errorhandler(500)
@@ -66,10 +66,11 @@ class InformationForm(Form):
 	submit = SubmitField("提交")
 
 class Student(db.Model):
-	__tablename__ = 'daoshi'
+	__tablename__ = 'qihuo'
 	StuID = db.Column(db.String(10), primary_key=True,unique=True)
 	StuName = db.Column(db.String(6))
 	First = db.Column(db.String(20))
+	stime = db.Column(db.String(25))
 
 
 	def __repr__(self):
