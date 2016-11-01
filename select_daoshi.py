@@ -29,27 +29,22 @@ def index():
 		student_1 = Student(StuID=form.StuID.data,
 							StuName=form.name.data,
 							First=form.First.data,
-							Second=form.Second.data,
-							Third=form.Third.data,
-							Phone = form.Phone.data,
 							stime = time.strftime("%Y-%m-%d %H:%M:%S"))
 		if student is None:
 			try:
 				db.session.add(student_1)
 			except:
-				flash('信息录入失败，请重新录入','alert alert-danger')
-				db.session.rollback()
-				return render_template('select_daoshi.html', form=form)
+				db.session.add(student_1)
 			flash('信息录入成功','alert alert-success')
 			return render_template('select_daoshi.html', form=form)
 		else:
-			if student.StuName == student_1.StuName and [student.First,student.Second,student.Third] == [student_1.First,student_1.Second,student_1.Third] and student.Phone==student_1.Phone:
+			if student.StuName == student_1.StuName and student.First == student_1.First:
 				flash('该学号已登记，登记时间为%s，你此次输入的信息与数据库中保存的信息相符' % student.stime, 'alert alert-success')
 			else:
 				flash('该学号已登记，登记时间%s, 并且你此次输入的信息与数据库保存的信息不符。如需更改登记信息请微信联系管理员，或用本人南开邮箱发送邮件至2120162310@mail.nankai.edu.cn' % student.stime, 'alert alert-danger')
 			# db.session.rollback()
 			return render_template('select_daoshi.html', form=form)
-	flash('为了防止个人志愿被篡改，在本网页只能提交一次志愿。之后如需要更改，可直接通过微信或者通过南开邮箱联系我2120162310@mail.nankai.edu.cn（发件时请使用本人南开邮箱）','alert alert-info')
+	flash('这是一个用来统计《商品投资》模拟期货账户的页面，大家记得不要填错~','alert alert-info')
 	return render_template('select_daoshi.html', form=form)
 
 @app.errorhandler(500)
@@ -67,27 +62,20 @@ def handle_500(e):
 class InformationForm(Form):
 	StuID = StringField("请输入学号:", validators=[Length(10)])
 	name = StringField("请输入姓名:", validators=[Required()])
-	First = StringField("请输入一志愿导师:", validators=[Required()])
-	Second = StringField("请输入二志愿导师:", validators=[Required()])
-	Third = StringField("请输入三志愿导师:", validators=[Required()])
-	Phone = StringField("请输入个人手机号:", validators=[Length(11)])
+	First = StringField("模拟账户帐号:", validators=[Required()])
 	submit = SubmitField("提交")
 
 class Student(db.Model):
 	__tablename__ = 'daoshi'
 	StuID = db.Column(db.String(10), primary_key=True,unique=True)
 	StuName = db.Column(db.String(6))
-	First = db.Column(db.String(6))
-	Second = db.Column(db.String(6))
-	Third = db.Column(db.String(6))
-	Phone = db.Column(db.String(11))
-	stime = db.Column(db.String(25))
+	First = db.Column(db.String(20))
 
 
 	def __repr__(self):
-		return '<Student %r>' % self.StuName+self.First+self.Second+self.Third
+		return '<Student %r>' % self.StuName+self.First
 
 
 if __name__ == '__main__':
-	# db.create_all()
-	app.run(host='0.0.0.0',port=8899,threaded=True)
+	db.create_all()
+	app.run(host='0.0.0.0',port=8877,threaded=True)
